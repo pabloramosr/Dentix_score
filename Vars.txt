@@ -1,0 +1,130 @@
+Variables:
+TRANSACTION ID - Identificador unico del registro - int - yes
+FECHA NACIMIENTO - date(nn/nn/nnnn) - sus
+FECHA EXP DOC - Fecha de vencimmeinto identificacion - date(nn/nn/nnnn) - sus
+NIVEL ESTUDIOS - cat - sus
+ESTADOCIVIl - cat(soltero (a), Union Libre, Casado(a), Divorciado (a) / Separado (a)) - sus
+PROFESION - cat - sus
+GÉNERO	- cat - yes
+TIPO VIVIENDA - Familia, Propia, Arrendada - cat - yes
+NO PERSONAS A CARGO	- Numro de dependientes economicos - int - yes
+ANTIGUEDAD EN LA CIUDAD tiempo en residencia - int(supongo que años) - yes
+ESTRATO	- Nivel socioeconomico(1-6 en Colombia) - int(no se que es) - yes
+CIUDAD - cat - yes
+DEPARTAMENTO - Estado/Region - cat - yes
+DIRECCION - string - NO
+BARRIO - cat - NO
+ACTIVIDAD ECONÓMICA	- cat - sus
+EMPRESA	- string - NO
+TIPO CONTRATO - Contrato laboral - cat - yes
+OCUPACIÓN - cat - sus
+TIEMPO ACTIVIDAD - Tiempo trabajando - int - yes
+INGRESOS FIJOS	- float - yes
+OTROS INGRESOS	- float - yes
+TOTAL INGRESOS	- float - yes
+CUOTA DE CREDITOS - Cuota mensual de otros creditos - float - yes
+GASTOS DE SOSTENIMIENTO - Gastos personales mensual - float - yes
+TOTAL EGRESOS - Suma de gastos y creditos - float - yes
+ACTIVOS	- Suma de valor por propiedades, autos, etc - float - yes
+PASIVOS	- Deudas totales - float - yes
+FECHA SOLICITUD	- Fecha que se solicito el credito - date(mm/dd/yy) - yes
+FINANCIERA	- Entidad financiera - cat - sus
+MONTO PREAPROBADO - Valor sugerido antes de revision manual - float - yes
+NO CREDITO	- Numero de credito asignado unico - int - sus
+MONTO APROBADO	- Valor finalmente aprobado - float - yes
+PLAZO - Duracion del credito en meses - int - yes
+FECHA APROBACIÓN - date(mm/dd/yy) - yes
+FECHA DESEMBOLSO - Fecha de entrega del dinero - date - yes
+MONTO DESEMBOLSO - float - yes
+COMERCIAL - Asesor comercial que gestiona la venta - cat - sus
+CLINICA	- cat - yes
+IDENTIFICACION COMERCIAL - Id asesor comercial - int - sus
+TASA - Tasa de interes aplicada - float - yes
+CUOTAMENSUAL - Cuota mensual aplicada - float - yes
+LUGAR NACIMIENTO - cat - sus
+CODIGO CIIU	- Codigo industrial de actividad economica (DANE)- cat - sus
+OPERACION MONEDA EXTRAGERA - Credito con moneda extranjera - bool - NO
+FCREACION DENTICUOTAS - Fecha de creacion en el sistema - date - sus
+INCIDENCIAFORMALIZACION	- Observaciones de formalizacion(documentos incompletos) - string - yes
+SCORE - Puntuacion crediticia interna - float - yes
+SEGURO - Valor del seguro asociado al credito - float - yes
+AVAL - Valor del Aval o garantia - float - yes(creo)
+CODIGO CONFIRMACION CREDITO - Codigo interno de aprobacion - int - sus
+PAGARE_ID - Identificador del pagare(contraro) - int - sus
+DESISTIMIENTO - El cliente se retiro antes del desembolso - cat/bool - yes
+NUMERO CREDITO TESEO - Codigo en sistema TESEO- int - no se
+SALDO CAPITAL - Capital restante del credito - float - yes
+SALDO VENCIDO - Monto de mora acumulado - float - yes
+DIAS DE MORA - Dias de atraso en pago - int - yes
+FRANJA DE MORA - Categoria "Al dia, 1-30, >30..." - cat (Variable objetivo) - yes
+
+Variables de interes:
+
+- Objetivo:
+
+FRANJA DE MORA - Categoria "Al dia, 1-30, >30..." - cat (Variable objetivo) 
+
+- Predictoras Directas:
+GÉNERO	- cat (M'masculino' = 0, F'femenino' = 1, NB'no binario' = 2, 'vacio' = 3)(1000 y algo vacios)
+TIPO VIVIENDA - cat (propia = 0, propia con credito = 1, familiar = 2, arrendad = 3, vacio = 4)(2 vacios)
+NO PERSONAS A CARGO	- Numro de dependientes economicos - int (38644648,380588, Atipiquisimo, datos raros) (vacias = 0 tot'24286')
+ANTIGUEDAD EN LA CIUDAD tiempo en residencia - float (2 datos vacios = 1) 
+ESTRATO	- Nivel socioeconomico(1-6 en Colombia) - int(2 vacios) 
+CIUDAD - cat 
+DEPARTAMENTO - Estado/Region - cat 
+TIPO CONTRATO - Contrato laboral - cat (Fijo = 0, Indefinido = 1, No Aplica = 2, Prestación de servicios = 3, 1 vacia, mismo que las 2 vacias pasadas)
+TIEMPO ACTIVIDAD - Tiempo trabajando - int 
+TOTAL INGRESOS	- float 
+TOTAL EGRESOS - Suma de gastos y creditos - float (Pendiente de sumar gastos)
+ACTIVOS	- Suma de valor por propiedades, autos, etc - float (Vacios = 0)
+PASIVOS	- Deudas totales - float (Vacios = 0)
+MONTO APROBADO	- Valor finalmente aprobado - float 
+PLAZO - Duracion del credito en meses - int 
+CLINICA	- cat -
+TASA - Tasa de interes aplicada - float 
+CUOTAMENSUAL - Cuota mensual aplicada - float 
+SCORE - Puntuacion crediticia interna - float
+SEGURO - Valor del seguro asociado al credito - float 
+AVAL - Valor del Aval o garantia - float 
+DESISTIMIENTO - El cliente se retiro antes del desembolso - cat/bool (vacios = 0, desitido = 1, n<0 = 1)
+
+-Correlacionadas:
+    CUOTA DE CREDITOS - Cuota mensual de otros creditos - float  (vacios = 0)
+    GASTOS DE SOSTENIMIENTO - Gastos personales mensual - float (Los vacios se tratan en el colab)
+    INGRESOS FIJOS	- float 
+    OTROS INGRESOS	- float 
+
+- Predictoras de contexto:
+ACTIVIDAD ECONÓMICA	- cat
+OCUPACIÓN - cat
+FECHA NACIMIENTO - date(nn/nn/nnnn) 
+NIVEL ESTUDIOS - cat
+ESTADOCIVIl - cat(soltero (a), Union Libre, Casado(a), Divorciado (a) / Separado (a)) 
+PROFESION - cat
+FINANCIERA	- Entidad financiera - cat 
+CODIGO CIIU	- Codigo industrial de actividad economica (DANE)- cat 
+
+- Irrelevantes
+DIRECCION - string
+BARRIO - cat 
+EMPRESA	- string 
+OPERACION MONEDA EXTRAGERA - Credito con moneda extranjera - bool 
+MONTO PREAPROBADO - Valor sugerido antes de revision manual - float 
+FECHA APROBACIÓN - date(mm/dd/yy) 
+FECHA DESEMBOLSO - Fecha de entrega del dinero - date 
+MONTO DESEMBOLSO - float 
+SALDO CAPITAL - Capital restante del credito - float
+SALDO VENCIDO - Monto de mora acumulado - float
+DIAS DE MORA - Dias de atraso en pago - int
+CODIGO CONFIRMACION CREDITO - Codigo interno de aprobacion - int 
+PAGARE_ID - Identificador del pagare(contraro) - int 
+NUMERO CREDITO TESEO - Codigo en sistema TESEO- int 
+IDENTIFICACION COMERCIAL - Id asesor comercial - int 
+COMERCIAL - Asesor comercial que gestiona la venta - cat 
+FECHA SOLICITUD	- Fecha que se solicito el credito - date(mm/dd/yy)
+FECHA EXP DOC - Fecha de vencimmeinto identificacion - date(nn/nn/nnnn) 
+NO CREDITO	- Numero de credito asignado unico - int 
+LUGAR NACIMIENTO - cat 
+FCREACION DENTICUOTAS - Fecha de creacion en el sistema - date 
+TRANSACTION ID - Identificador unico del registro - int 
+INCIDENCIAFORMALIZACION	- Observaciones de formalizacion(documentos incompletos) - string 
